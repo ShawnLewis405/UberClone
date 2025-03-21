@@ -46,6 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				AE9CC0102D8CF3C500B596CB /* UberClone */,
+				AE9CC0262D8CF42B00B596CB /* New Group */,
 				AE9CC00F2D8CF3C500B596CB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +57,13 @@
 				AE9CC00E2D8CF3C500B596CB /* UberClone.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AE9CC0262D8CF42B00B596CB /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
