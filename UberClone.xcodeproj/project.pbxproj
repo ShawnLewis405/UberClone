@@ -6,8 +6,25 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AE528AE32D8FC72E00F00436 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AE22D8FC72E00F00436 /* FirebaseAuth */; };
+		AE528AE52D8FC72E00F00436 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AE42D8FC72E00F00436 /* FirebaseCore */; };
+		AE528AE72D8FC72E00F00436 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AE62D8FC72E00F00436 /* FirebaseDatabase */; };
+		AE528AE92D8FC72E00F00436 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AE82D8FC72E00F00436 /* FirebaseFirestore */; };
+		AE528AEB2D8FC72E00F00436 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AEA2D8FC72E00F00436 /* FirebaseStorage */; };
+		AE528AEE2D908F4D00F00436 /* GeoFire in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AED2D908F4D00F00436 /* GeoFire */; };
+		AE528AF02D908F4D00F00436 /* GeoFireUtils in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AEF2D908F4D00F00436 /* GeoFireUtils */; };
+		AE528AF22D908FC700F00436 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AF12D908FC700F00436 /* FirebaseAuth */; };
+		AE528AF42D908FC700F00436 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AF32D908FC700F00436 /* FirebaseCore */; };
+		AE528AF62D908FC700F00436 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AF52D908FC700F00436 /* FirebaseDatabase */; };
+		AE528AF82D908FC700F00436 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AF72D908FC700F00436 /* FirebaseFirestore */; };
+		AE528AFA2D908FC700F00436 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AE528AF92D908FC700F00436 /* FirebaseStorage */; };
+		AE70CBEA2D8F73270079CA32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE70CBE22D8F73270079CA32 /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		AE9CC00E2D8CF3C500B596CB /* UberClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UberClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE70CBE22D8F73270079CA32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AE9CC00E2D8CF3C500B596CB /* UberClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = UberClone.app; path = "/Users/Kingshawn/iOS_Development/UdemyCourses/UberCloneApp/UberClone/build/Debug-iphoneos/UberClone.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,6 +53,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE528AF62D908FC700F00436 /* FirebaseDatabase in Frameworks */,
+				AE528AEE2D908F4D00F00436 /* GeoFire in Frameworks */,
+				AE528AE72D8FC72E00F00436 /* FirebaseDatabase in Frameworks */,
+				AE528AE92D8FC72E00F00436 /* FirebaseFirestore in Frameworks */,
+				AE528AE52D8FC72E00F00436 /* FirebaseCore in Frameworks */,
+				AE528AFA2D908FC700F00436 /* FirebaseStorage in Frameworks */,
+				AE528AEB2D8FC72E00F00436 /* FirebaseStorage in Frameworks */,
+				AE528AF02D908F4D00F00436 /* GeoFireUtils in Frameworks */,
+				AE528AE32D8FC72E00F00436 /* FirebaseAuth in Frameworks */,
+				AE528AF42D908FC700F00436 /* FirebaseCore in Frameworks */,
+				AE528AF82D908FC700F00436 /* FirebaseFirestore in Frameworks */,
+				AE528AF22D908FC700F00436 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,25 +74,9 @@
 		AE9CC0052D8CF3C500B596CB = {
 			isa = PBXGroup;
 			children = (
+				AE70CBE22D8F73270079CA32 /* GoogleService-Info.plist */,
 				AE9CC0102D8CF3C500B596CB /* UberClone */,
-				AE9CC0262D8CF42B00B596CB /* New Group */,
-				AE9CC00F2D8CF3C500B596CB /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		AE9CC00F2D8CF3C500B596CB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				AE9CC00E2D8CF3C500B596CB /* UberClone.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		AE9CC0262D8CF42B00B596CB /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,8 +98,6 @@
 				AE9CC0102D8CF3C500B596CB /* UberClone */,
 			);
 			name = UberClone;
-			packageProductDependencies = (
-			);
 			productName = UberClone;
 			productReference = AE9CC00E2D8CF3C500B596CB /* UberClone.app */;
 			productType = "com.apple.product-type.application";
@@ -115,8 +126,12 @@
 			);
 			mainGroup = AE9CC0052D8CF3C500B596CB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				AE528AEC2D908F4D00F00436 /* XCRemoteSwiftPackageReference "geofire-objc" */,
+			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = AE9CC00F2D8CF3C500B596CB /* Products */;
+			productRefGroup = AE9CC0052D8CF3C500B596CB;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -130,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE70CBEA2D8F73270079CA32 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,9 +167,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2976624V7R;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UberClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -161,6 +179,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -168,6 +187,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blackdigitalunicorn.UberClone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -179,9 +199,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2976624V7R;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UberClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -189,6 +211,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -196,6 +219,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blackdigitalunicorn.UberClone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -254,7 +278,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -311,7 +335,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -343,6 +367,88 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.10.0;
+			};
+		};
+		AE528AEC2D908F4D00F00436 /* XCRemoteSwiftPackageReference "geofire-objc" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/geofire-objc.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AE528AE22D8FC72E00F00436 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		AE528AE42D8FC72E00F00436 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		AE528AE62D8FC72E00F00436 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		AE528AE82D8FC72E00F00436 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		AE528AEA2D8FC72E00F00436 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		AE528AED2D908F4D00F00436 /* GeoFire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AEC2D908F4D00F00436 /* XCRemoteSwiftPackageReference "geofire-objc" */;
+			productName = GeoFire;
+		};
+		AE528AEF2D908F4D00F00436 /* GeoFireUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AEC2D908F4D00F00436 /* XCRemoteSwiftPackageReference "geofire-objc" */;
+			productName = GeoFireUtils;
+		};
+		AE528AF12D908FC700F00436 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		AE528AF32D908FC700F00436 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		AE528AF52D908FC700F00436 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		AE528AF72D908FC700F00436 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		AE528AF92D908FC700F00436 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE528AE12D8FC72E00F00436 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AE9CC0062D8CF3C500B596CB /* Project object */;
 }

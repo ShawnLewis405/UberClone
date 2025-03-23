@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class LoginController: UIViewController {
     
     //  MARK: - Properties
@@ -24,6 +25,8 @@ class LoginController: UIViewController {
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return view
     }()
+    
+    
     
     private lazy var passwordContainerView: UIView = {
         let view = UIView().inputContainerViewStyle(image: UIImage(named: "ic_lock_outline_white_2x")!, textField: passwordTextField)

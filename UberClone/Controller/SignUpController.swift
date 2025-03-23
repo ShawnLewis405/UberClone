@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class SignUpController: UIViewController {
     
@@ -38,9 +40,8 @@ class SignUpController: UIViewController {
     }()
     
     private lazy var accountTypeContainerView: UIView = {
-        let view = UIView().inputContainerViewStyle(image: UIImage(named: "ic_account_box_white_2x")!,
-                                                    segmentedControl: accountTypeSegmentedControl)
-        view.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        let view = UIView().inputContainerViewStyle(segmentedControl: accountTypeSegmentedControl)
+        view.heightAnchor.constraint(equalToConstant: 70).isActive = true
         return view
     }()
     
@@ -64,7 +65,9 @@ class SignUpController: UIViewController {
             sc.backgroundColor = .backgroundColor
             sc.tintColor = UIColor(white: 1, alpha: 0.87)
             sc.selectedSegmentIndex = 0
-            sc.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
+        sc.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        sc.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+
             return sc
         }()
             
@@ -72,6 +75,7 @@ class SignUpController: UIViewController {
         let button = AuthButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
         return button
     }()
     
@@ -106,7 +110,35 @@ class SignUpController: UIViewController {
     //  MARK: - Selectors
     
     @objc func handleShowLogin() {
-        print("login")
+        print("login tapped...")
+    }
+    
+    @objc func handleShowSignUp() {
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let fullname = fullnameTextField.text else { return }
+        let accountTypeIndex = accountTypeSegmentedControl.selectedSegmentIndex
+        print(email)
+        print(password)
+        print(fullname)
+        
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("Failed to register user with error \(error)")
+                return
+            }
+            
+            guard let uid = result?.user.uid else { return }
+            
+            let values = ["email": email, "fullname": fullname, "accountType": accountTypeIndex] as [String: Any]
+            
+            // upload user login info to the database
+            Database.database().reference().child("users").child(uid).updateChildValues(values) { (error , ref) in
+                print("Successfully registered user and save")
+
+            }
+            
+        }
     }
     
     
