@@ -124,7 +124,7 @@ class SignUpController: UIViewController {
         
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
-                print("Failed to register user with error \(error)")
+                print("Failed to register user with error \(error.localizedDescription)")
                 return
             }
             
@@ -135,6 +135,9 @@ class SignUpController: UIViewController {
             // upload user login info to the database
             Database.database().reference().child("users").child(uid).updateChildValues(values) { (error , ref) in
                 print("Successfully registered user and save")
+                guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController else { return }
+                controller.configureUI()
+                self.dismiss(animated: true, completion: nil)
 
             }
             

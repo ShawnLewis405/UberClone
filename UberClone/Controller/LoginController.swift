@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 
 class LoginController: UIViewController {
@@ -47,6 +49,7 @@ class LoginController: UIViewController {
         let button = AuthButton(type: .system)
         button.setTitle("Login", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.addTarget(self, action: #selector(hangleLogin), for: .touchUpInside)
 
         return button
     }()
@@ -79,6 +82,26 @@ class LoginController: UIViewController {
     @objc func handleShowSignUp() {
         let controller = SignUpController()
         navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @objc func hangleLogin() {
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("DEBUG: Failed to log user in with error \(error.localizedDescription)")
+                return
+            }
+            
+            print("Successfully log user in")
+            
+            guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController else { return }
+            controller.configureUI()
+            self.dismiss(animated: true, completion: nil)
+            
+
+        }
+        print("handle Login works..")
     }
     
     //  MARK: - Helper Functions
