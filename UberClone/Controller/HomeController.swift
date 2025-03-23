@@ -14,6 +14,7 @@ class HomeController: UIViewController {
     //  MARK: - Properties
     
     private let mapView = MKMapView()
+    private let locationManager = CLLocationManager()
     
     //  MARK: - Lifecycle
     
@@ -21,6 +22,7 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         checkIfUserIsLoggedIn()
         //signOut()
+        enableLocationServices()
         
     }
     
@@ -36,7 +38,7 @@ class HomeController: UIViewController {
 
             }
         } else {
-            print("DEBUG: User id is \(Auth.auth().currentUser?.uid)")
+            //print("DEBUG: User id is \(Auth.auth().currentUser?.uid)")
             configureUI()
         }
     }
@@ -53,8 +55,49 @@ class HomeController: UIViewController {
     
     //  MARK: - Helper Functions
     
-    func configureUI() {
+    func configureMapView() {
         view.addSubview(mapView)
         mapView.frame = view.frame
+        
+        mapView.showsUserLocation = true
+        mapView.userTrackingMode = .follow
+    }
+    
+    func configureUI() {
+        configureMapView()
+    }
+    
+    
+    
+    
+}
+//  MARK: - Location Services
+
+extension HomeController: CLLocationManagerDelegate {
+    func enableLocationServices() {
+        locationManager.delegate = self
+        switch CLLocationManager().authorizationStatus {
+            
+        case .notDetermined:
+            print("DEBUG: Not Determined")
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted, .denied:
+            break
+        case .authorizedAlways:
+            print("DEBUG: Authorized Always")
+            locationManager.startUpdatingLocation()
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        case .authorizedWhenInUse:
+            print("DEBUG: Authorized When In Use")
+            locationManager.requestAlwaysAuthorization()
+        @unknown default:
+            break
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.requestAlwaysAuthorization()
+        }
     }
 }
