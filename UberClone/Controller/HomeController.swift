@@ -11,16 +11,23 @@ import FirebaseDatabase
 import MapKit
 
 private let reuseIdentifier = "LocationCell"
+private let annotationIdentifier = "DriverAnnotation"
 
 class HomeController: UIViewController {
     //  MARK: - Properties
     
     private let mapView = MKMapView()
-    private let locationManager = CLLocationManager()
+    private let locationManager = LocationHandler.shared.locationManager
     
     private let inputActivationView = LocationInputActivationView()
     private let locationInputView = LocationInputView()
     private let tableView = UITableView()
+    
+    private var user: User? {
+        didSet {
+            locationInputView.user = user
+        }
+    }
     
     private final let locationInputViewHeight: CGFloat = 200
     
@@ -29,17 +36,51 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         checkIfUserIsLoggedIn()
-        //signOut()
         enableLocationServices()
+
+        
         
     }
     
     //  MARK: - API
     
+    func fetchUserData() {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        Service.shared.fetchUserData(uid: currentUid) { user in
+            self.user = user
+        }
+    }
+    
+    func fetchDrivers() {
+        guard let location = locationManager?.location else { return }
+        Service.shared.fetchDrivers(location: location) { driver in
+            guard let coordinate = driver.location?.coordinate else { return }
+            let annotation = DriverAnnotation(uid: driver.uid, coordinate: coordinate)
+            print("fetch driver location coordinate: \(coordinate)")
+            
+            var driverIsVisible: Bool {
+                return self.mapView.annotations.contains { annotation -> Bool in
+                    guard let driverAnno = annotation as? DriverAnnotation else { return false}
+                    if driverAnno.uid == driver.uid {
+                        // update position here
+                        driverAnno.updateAnnotationPosition(withCoordinate: coordinate)
+                        return true
+                    }
+                    return false
+                }
+            }
+            
+            if !driverIsVisible {
+                self.mapView.addAnnotation(annotation)
+            }
+            
+            
+        }
+    }
+    
     func checkIfUserIsLoggedIn() {
         if Auth.auth().currentUser?.uid == nil {
             DispatchQueue.main.async {
-                //let nav = UINavigationController
                 let nav = UINavigationController(rootViewController: LoginController())
                 nav.modalPresentationStyle = .fullScreen
                 self.present(nav, animated: true, completion: nil)
@@ -47,13 +88,19 @@ class HomeController: UIViewController {
             }
         } else {
             //print("DEBUG: User id is \(Auth.auth().currentUser?.uid)")
-            configureUI()
+            configure()
         }
     }
     
     func signOut() {
         do {
             try Auth.auth().signOut()
+            DispatchQueue.main.async {
+                let nav = UINavigationController(rootViewController: LoginController())
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
+
+            }
         } catch {
             print("DEBUG: Error signing out")
         }
@@ -63,12 +110,19 @@ class HomeController: UIViewController {
     
     //  MARK: - Helper Functions
     
+    func configure() {
+        configureUI()
+        fetchUserData()
+        fetchDrivers()
+    }
+    
     func configureMapView() {
         view.addSubview(mapView)
         mapView.frame = view.frame
         
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
+        mapView.delegate = self
     }
     
     func configureUI() {
@@ -96,7 +150,7 @@ class HomeController: UIViewController {
         UIView.animate(withDuration: 0.5) {
             self.locationInputView.alpha = 1
         } completion: { _ in
-            print("present table view")
+            
             UIView.animate(withDuration: 0.3, animations: {
                 self.tableView.frame.origin.y = self.locationInputViewHeight
             })
@@ -117,45 +171,45 @@ class HomeController: UIViewController {
         tableView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: height)
         
         view.addSubview(tableView)
-        
-        
-        
-        
     }
-    
-    
-    
-    
 }
+
+    //  MARK: - MKMapViewDelegate
+
+extension HomeController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
+        if let annotation = annotation as?  DriverAnnotation {
+            let view = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+            view.image = UIImage(systemName: "person.circle")
+            return view
+        }
+        return nil
+    }
+}
+
 //  MARK: - Location Services
 
-extension HomeController: CLLocationManagerDelegate {
+extension HomeController {
     func enableLocationServices() {
-        locationManager.delegate = self
         switch CLLocationManager().authorizationStatus {
             
         case .notDetermined:
-            print("DEBUG: Not Determined")
-            locationManager.requestWhenInUseAuthorization()
+       //     print("DEBUG: Not Determined")
+                locationManager?.requestWhenInUseAuthorization()
         case .restricted, .denied:
             break
         case .authorizedAlways:
-            print("DEBUG: Authorized Always")
-            locationManager.startUpdatingLocation()
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//            print("DEBUG: Authorized Always")
+            locationManager?.startUpdatingLocation()
+            locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         case .authorizedWhenInUse:
-            print("DEBUG: Authorized When In Use")
-            locationManager.requestAlwaysAuthorization()
+        //    print("DEBUG: Authorized When In Use")
+            locationManager?.requestAlwaysAuthorization()
         @unknown default:
             break
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationManager.requestAlwaysAuthorization()
-        }
-    }
 }
 
 //  MARK: - LocationInputActivationViewDelegate

@@ -8,10 +8,14 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import GeoFire
 
 class SignUpController: UIViewController {
     
     //  MARK: - Properties
+    
+    private var location = LocationHandler.shared.locationManager.location
+    
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -46,8 +50,6 @@ class SignUpController: UIViewController {
     }()
     
     
-    
-    
     private let emailTextField: UITextField = {
         return UITextField().textFieldStyle(withPlaceholder: "Email", isSecureTextEntry: false)
     }()
@@ -61,7 +63,7 @@ class SignUpController: UIViewController {
     }()
 
     private let accountTypeSegmentedControl: UISegmentedControl = {
-            let sc = UISegmentedControl(items: ["Driver", "Rider"])
+            let sc = UISegmentedControl(items: ["Rider", "Driver"])
             sc.backgroundColor = .backgroundColor
             sc.tintColor = UIColor(white: 1, alpha: 0.87)
             sc.selectedSegmentIndex = 0
@@ -104,13 +106,14 @@ class SignUpController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        print("Location is: \(location)")
+
         
     }
     
     //  MARK: - Selectors
     
     @objc func handleShowLogin() {
-        print("login tapped...")
     }
     
     @objc func handleShowSignUp() {
@@ -131,21 +134,31 @@ class SignUpController: UIViewController {
             guard let uid = result?.user.uid else { return }
             
             let values = ["email": email, "fullname": fullname, "accountType": accountTypeIndex] as [String: Any]
-            
-            // upload user login info to the database
-            Database.database().reference().child("users").child(uid).updateChildValues(values) { (error , ref) in
-                print("Successfully registered user and save")
-                guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController else { return }
-                controller.configureUI()
-                self.dismiss(animated: true, completion: nil)
 
-            }
             
+            if accountTypeIndex == 1 {
+                let geofire = GeoFire(firebaseRef: REF_DRIVER_LOCATIONS)
+                guard let location = self.location else { return }
+                
+                geofire.setLocation(location, forKey: uid) { error in
+                    // do stuff
+                    self.uploadUserDataAndShowHomeController(uid: uid, values: values)
+                }
+            }
+            self.uploadUserDataAndShowHomeController(uid: uid, values: values)
         }
     }
     
-    
     //  MARK: - Helper Functions
+    
+    func uploadUserDataAndShowHomeController(uid: String, values: [String: Any]) {
+            // upload user login info to the database
+            REF_USERS.child(uid).updateChildValues(values) { (error , ref) in
+                guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController else { return }
+                controller.configure()
+                self.dismiss(animated: true, completion: nil)
+            }
+    }
     
     func configureUI() {
         view.backgroundColor = .backgroundColor
