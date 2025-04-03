@@ -9,6 +9,7 @@ import UIKit
 
 protocol LocationInputViewDelegate: AnyObject {
     func dismissLocationInputView()
+    func executeSearch(query: String)
 }
 
 class LocationInputView: UIView {
@@ -25,7 +26,7 @@ class LocationInputView: UIView {
     
     private let backButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "baseline_arrow_back_black_36dp-1")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(UIImage(named: "baseline_arrow_back_black")?.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(handleBackButtonTapped), for: .touchUpInside)
         return button
         
@@ -78,6 +79,7 @@ class LocationInputView: UIView {
         tf.font = UIFont.systemFont(ofSize: 14)
         tf.backgroundColor = .lightGray
         tf.layer.cornerRadius = 2
+        tf.delegate = self
         
         let paddingView = UIView()
         paddingView.setDimensions(height: 30, width: 8)
@@ -134,5 +136,15 @@ class LocationInputView: UIView {
     
     @objc func handleBackButtonTapped() {
         delegate?.dismissLocationInputView()
+    }
+}
+
+    //  MARK: - UITextFieldDelegate
+
+extension LocationInputView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let query = textField.text else { return false }
+        delegate?.executeSearch(query: query)
+        return true
     }
 }
